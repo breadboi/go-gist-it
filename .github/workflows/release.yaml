@@ -18,12 +18,6 @@ jobs:
         with:
           go-version: 1.16
 
-      - name: Install Chocolatey
-        run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force
-          [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-          iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-
       - name: Install WiX Toolset
         run: choco install wixtoolset
 
@@ -32,8 +26,8 @@ jobs:
 
       - name: Build Installer
         run: |
-          candle.exe go-gist-it-wix.wxs
-          light.exe go-gist-it-wix.wixobj -o go-gist-it-installer.exe
+          "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\candle.exe" go-gist-it-wix.wxs
+          "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\light.exe" go-gist-it-wix.wixobj -o go-gist-it-installer.exe
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
