@@ -1,0 +1,36 @@
+name: Windows Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - name: Build Go app
+        run: go build -ldflags -H=windowsgui -o dist/go-gist-it.exe
+
+      - name: Install WiX Toolset
+        run: choco install wixtoolset
+
+      - name: Build Installer
+        run: candle.exe go-gist-it-wix.wxs ; light.exe go-gist-it-wix.wixobj -o go-gist-it-installer.exe
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./output-installer-name.exe
+          asset_name: installer.exe
+          asset_content_type: application/exe
