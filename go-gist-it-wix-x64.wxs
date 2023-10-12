@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" Name="Go Gist It x64" Version="1.0.0" Manufacturer="breadboi" UpgradeCode="d361d80f-7086-4bce-b64a-0310c72ff581" Language="1033" Platform="x64">
+    <Product Id="*" Name="Go Gist It x64" Version="1.0.0" Manufacturer="breadboi" UpgradeCode="d361d80f-7086-4bce-b64a-0310c72ff581" Language="1033">
         <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
