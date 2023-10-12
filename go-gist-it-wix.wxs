@@ -14,7 +14,7 @@
             <Directory Id="ProgramFilesFolder">
                 <Directory Id="INSTALLLOCATION" Name="Go Gist It">
                     <Component Id="MainExecutable" Guid="1c2c800f-5e82-463c-b859-64b3d4acbf79">
-                        <File Source="dist" Name="go-gist-it.exe" />
+                        <File Source="dist/go-gist-it.exe" Name="go-gist-it.exe" />
                     </Component>
                 </Directory>
             </Directory>
