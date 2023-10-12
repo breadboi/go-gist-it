@@ -13,12 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install WiX Toolset
+        run: choco install wixtoolset
+
+      - name: Install WiX Toolset
+        run: |
+          & "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix311.exe" /install /quiet /norestart
+
       - name: List WiX directories
         run: |
           Get-ChildItem -Path "C:\ProgramData\chocolatey\lib\wixtoolset\tools" -Recurse
-
-      - name: Install WiX Toolset
-        run: choco install wixtoolset
 
       - name: Setup Go
         uses: actions/setup-go@v2
@@ -30,8 +34,8 @@ jobs:
 
       - name: Build Installer
         run: |
-          & "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\candle.exe" go-gist-it-wix.wxs
-          & "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\light.exe" go-gist-it-wix.wixobj -o go-gist-it-installer.exe
+          & "C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe" go-gist-it-wix.wxs
+          & "C:\Program Files (x86)\WiX Toolset v3.11\bin\light.exe" go-gist-it-wix.wixobj -o go-gist-it-installer.exe
         shell: pwsh
 
       - name: Upload Release Asset
