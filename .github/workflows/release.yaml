@@ -18,6 +18,9 @@ jobs:
         with:
           go-version: 1.16
 
+      - name: Setup WiX Toolset
+        uses: wix-toolset/wix-toolset-ci/setup-wix@v1
+
       - name: Build Go app
         run: go build -ldflags -H=windowsgui -o dist/go-gist-it.exe
 
@@ -25,12 +28,14 @@ jobs:
         run: choco install wixtoolset
 
       - name: Build Installer
-        run: candle.exe go-gist-it-wix.wxs ; light.exe go-gist-it-wix.wixobj -o go-gist-it-installer.exe
+        run: |
+          candle.exe go-gist-it-wix.wxs
+          light.exe go-gist-it-wix.wixobj -o go-gist-it-installer.exe
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./output-installer-name.exe
-          asset_name: installer.exe
+          asset_name: go-gist-it-installer.exe
           asset_content_type: application/exe
