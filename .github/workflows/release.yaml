@@ -34,6 +34,21 @@ jobs:
           & "C:\Program Files (x86)\WiX Toolset v3.11\bin\light.exe" go-gist-it-wix.wixobj -o go-gist-it-installer.exe
         shell: pwsh
 
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: installer
+          path: ./go-gist-it-installer.exe
+
+  release:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - name: Download installer artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: installer
+
       - name: Set Tag
         run: |
           git tag release-${{ github.sha }}
