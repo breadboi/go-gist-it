@@ -20,10 +20,6 @@ jobs:
         run: |
           & "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix311.exe" /install /quiet /norestart
 
-      - name: List WiX directories
-        run: |
-          Get-ChildItem -Path "C:\ProgramData\chocolatey\lib\wixtoolset\tools" -Recurse
-
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
