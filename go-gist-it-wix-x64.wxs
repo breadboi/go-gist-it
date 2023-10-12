@@ -4,7 +4,7 @@
         <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-        <MediaTemplate EmbedCab="yes" />
+        <MediaTemplate EmbedCab="yes" Platform="x64" />
 
         <Feature Id="ProductFeature" Title="Go Gist It x64" Level="1">
             <ComponentGroupRef Id="ProductComponents" />
