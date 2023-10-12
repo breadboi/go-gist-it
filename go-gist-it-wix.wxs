@@ -23,7 +23,7 @@
         <ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
             <ComponentRef Id="MainExecutable" />
 
-            <Component Id="ContextMenuRegistry" Guid="ec3854a5-0996-407b-86e3-c2d812bbfbf7" Directory="INSTALLLOCATION">
+            <Component Id="ContextMenuRegistry" Guid="ec3854a5-0996-407b-86e3-c2d812bbfbf7">
                 <RegistryKey Root="HKCR" Key="*\shell\Generate Gist\command">
                     <RegistryValue Type="string" Value="&quot;[INSTALLLOCATION]go-gist-it.exe&quot; &quot;%1&quot;" />
                 </RegistryKey>
