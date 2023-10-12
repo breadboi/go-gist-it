@@ -16,7 +16,7 @@ jobs:
       - name: Install WiX Toolset
         run: choco install wixtoolset
 
-      - name: Install WiX Toolset
+      - name: Run WiX Installer
         run: |
           & "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix311.exe" /install /quiet /norestart
 
