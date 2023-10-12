@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*" Name="Go Gist It x86" Version="1.0.0" Manufacturer="breadboi" UpgradeCode="d361d80f-7086-4bce-b64a-0310c72ff581" Language="1033" Platform="x86">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86" />
+
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+        <MediaTemplate EmbedCab="yes" />
+
+        <Feature Id="ProductFeature" Title="Go Gist It x86" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+        </Feature>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLLOCATION" Name="Go Gist It">
+                    <Component Id="MainExecutable" Guid="1c2c800f-5e82-463c-b859-64b3d4acbf79">
+                        <File Source="dist/go-gist-it-x86.exe" Name="go-gist-it-x86.exe" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLLOCATION">
+            <ComponentRef Id="MainExecutable" />
+
+            <Component Id="ContextMenuRegistry" Guid="ec3854a5-0996-407b-86e3-c2d812bbfbf7">
+                <RegistryKey Root="HKCR" Key="*\shell\Generate Gist\command">
+                    <RegistryValue Type="string" Value="&quot;[INSTALLLOCATION]go-gist-it-x86.exe&quot; &quot;%1&quot;" />
+                </RegistryKey>
+            </Component>
+
+            <ComponentRef Id="ContextMenuRegistry" />
+        </ComponentGroup>
+
+    </Product>
+</Wix>

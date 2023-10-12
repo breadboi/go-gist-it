@@ -25,20 +25,34 @@ jobs:
         with:
           go-version: 1.16
 
-      - name: Build Go app
-        run: go build -ldflags -H=windowsgui -o dist/go-gist-it.exe
+      - name: Build x64
+        run: GOOS=windows GOARCH=amd64 go build -ldflags -H=windowsgui -o dist/go-gist-it-x64.exe
 
-      - name: Build Installer
+      - name: Build x86
+        run: GOOS=windows GOARCH=386 go build -ldflags -H=windowsgui -o dist/go-gist-it-x86.exe
+
+      - name: Build Installer x64
         run: |
-          & "C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe" go-gist-it-wix.wxs
-          & "C:\Program Files (x86)\WiX Toolset v3.11\bin\light.exe" go-gist-it-wix.wixobj -o go-gist-it-installer.exe
+          & "C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe" go-gist-it-wix-x64.wxs
+          & "C:\Program Files (x86)\WiX Toolset v3.11\bin\light.exe" go-gist-it-wix-x64.wixobj -o go-gist-it-installer-x64.exe
         shell: pwsh
 
-      - name: Upload installer artifact
+      - name: Build Installer x86
+        run: |
+          & "C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe" go-gist-it-wix-x86.wxs
+            & "C:\Program Files (x86)\WiX Toolset v3.11\bin\light.exe" go-gist-it-wix-x86.wixobj -o go-gist-it-installer-x86.exe
+
+      - name: Upload installer artifact x64
         uses: actions/upload-artifact@v2
         with:
-          name: installer
-          path: ./go-gist-it-installer.exe
+          name: installer-x64
+          path: ./go-gist-it-installer-x64.exe
+
+      - name: Upload installer artifact x86
+        uses: actions/upload-artifact@v2
+        with:
+          name: installer-x86
+          path: ./go-gist-it-installer-x86.exe
 
   release:
     needs: build
@@ -47,10 +61,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Download installer artifact
+      - name: Download installer artifact x64
         uses: actions/download-artifact@v2
         with:
-          name: installer
+          name: installer-x64
+
+      - name: Download installer artifact x86
+        uses: actions/download-artifact@v2
+        with:
+          name: installer-x86
 
       - name: Set Tag
         run: |
@@ -68,11 +87,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Release
+      - name: Release x64
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release-${{ github.sha }}
-          files: ./go-gist-it-installer.exe
+          files: ./go-gist-it-installer-x64.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Release x86
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: release-${{ github.sha }}
+          files: ./go-gist-it-installer-x86.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
