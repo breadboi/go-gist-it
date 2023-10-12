@@ -26,8 +26,9 @@ jobs:
 
       - name: Build Installer
         run: |
-          "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\candle.exe" go-gist-it-wix.wxs
-          "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\light.exe" go-gist-it-wix.wixobj -o go-gist-it-installer.exe
+          & "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\candle.exe" go-gist-it-wix.wxs
+          & "C:\ProgramData\chocolatey\lib\wixtoolset\tools\wix\light.exe" go-gist-it-wix.wixobj -o go-gist-it-installer.exe
+        shell: pwsh
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
