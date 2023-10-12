@@ -54,6 +54,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./output-installer-name.exe
+          asset_path: ./go-gist-it-installer.exe
           asset_name: go-gist-it-installer.exe
           asset_content_type: application/exe
