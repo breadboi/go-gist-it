@@ -13,13 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: List WiX directories
+        run: |
+          Get-ChildItem -Path "C:\ProgramData\chocolatey\lib\wixtoolset\tools" -Recurse
+
+      - name: Install WiX Toolset
+        run: choco install wixtoolset
+
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
-
-      - name: Install WiX Toolset
-        run: choco install wixtoolset
 
       - name: Build Go app
         run: go build -ldflags -H=windowsgui -o dist/go-gist-it.exe
