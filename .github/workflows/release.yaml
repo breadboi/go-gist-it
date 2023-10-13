@@ -46,13 +46,13 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: installer-x64
-          path: ./go-gist-it-installer-x64.exe
+          path: ./go-gist-it-installer-x64.msi
 
       - name: Upload installer artifact x86
         uses: actions/upload-artifact@v2
         with:
           name: installer-x86
-          path: ./go-gist-it-installer-x86.exe
+          path: ./go-gist-it-installer-x86.msi
 
   release:
     needs: build
@@ -91,7 +91,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release-${{ github.sha }}
-          files: ./go-gist-it-installer-x64.exe
+          files: ./go-gist-it-installer-x64.msi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -99,7 +99,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: release-${{ github.sha }}
-          files: ./go-gist-it-installer-x86.exe
+          files: ./go-gist-it-installer-x86.msi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
