@@ -1,4 +1,4 @@
-package go_gist_it
+package main
 
 import (
 	"os"
